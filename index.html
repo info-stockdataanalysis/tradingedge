@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>Stock Data Analysis | Premium Trading Indicators</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <!-- Font Awesome (for extra icons) -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    @keyframes fadeInUp {
+      0% { opacity: 0; transform: translateY(30px); }
+      100% { opacity: 1; transform: translateY(0); }
+    }
+    .fade-in-up {
+      animation: fadeInUp 1.2s ease-out;
+    }
+    .indicator-card {
+      transition: transform 0.5s, box-shadow 0.5s;
+      transform-style: preserve-3d;
+    }
+    .indicator-card:hover {
+      transform: scale(1.05) rotateX(4deg) rotateY(4deg);
+      box-shadow: 0 20px 25px rgba(0, 0, 0, 0.5);
+    }
+    .navbar-3d {
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+      transform: perspective(1000px) rotateX(2deg);
+      transition: transform 0.4s ease;
+    }
+    .navbar-3d:hover {
+      transform: perspective(1000px) rotateX(0deg) scale(1.01);
+    }
+    .nav-text-3d {
+      text-shadow: 1px 1px 3px rgba(255, 255, 255, 0.2);
+      transition: transform 0.3s ease, color 0.3s;
+    }
+    .nav-text-3d:hover {
+      transform: scale(1.1);
+      color: #facc15;
+    }
+    html, body {
+      overflow-x: hidden;
+      scroll-behavior: smooth;
+    }
+    /* Carousel styles */
+    .carousel-container {
+      position: relative;
+      max-width: 100%;
+      overflow: hidden;
+      padding: 40px 20px;
+    }
+    .image-row {
+      display: flex;
+      transition: transform 0.4s ease;
+    }
+    .image-row img, .image-row iframe {
+      width: 300px;
+      height: 200px;
+      margin: 0 10px;
+      transition: transform 0.4s, box-shadow 0.4s;
+      border-radius: 12px;
+      flex-shrink: 0;
+    }
+    .image-row img:hover, .image-row iframe:hover {
+      transform: scale(1.08) rotateY(6deg);
+      box-shadow: 0 20px 40px rgba(255, 255, 255, 0.25);
+      z-index: 10;
+    }
+    .arrow {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 40px;
+      color: white;
+      cursor: pointer;
+      background: rgba(0, 0, 0, 0.6);
+      padding: 10px 15px;
+      z-index: 100;
+      border-radius: 50px;
+      user-select: none;
+      transition: 0.2s;
+    }
+    .arrow:hover {
+      background: #facc15;
+      color: black;
+    }
+    .arrow.left { left: 10px; }
+    .arrow.right { right: 10px; }
+
+    /* premium glow & trial card */
+    .glow-text {
+      text-shadow: 0 0 12px rgba(255,215,0,0.8), 0 0 8px rgba(255,100,0,0.6);
+    }
+    .trial-card {
+      background: linear-gradient(135deg, #ffb347, #ff6b00);
+      border: 2px solid #ffdd99;
+      transition: 0.3s;
+    }
+    .trial-card:hover {
+      transform: scale(1.01);
+      box-shadow: 0 0 35px rgba(255, 160, 0, 0.7);
+    }
+    .pricing-table th {
+      background: rgba(0,0,0,0.6);
+      font-weight: 700;
+      letter-spacing: 0.5px;
+    }
+    .pricing-table tr {
+      transition: 0.2s;
+    }
+    .pricing-table tr:hover td {
+      background: rgba(255, 215, 0, 0.1);
+    }
+    .whatsapp-float {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      background: #25D366;
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+      z-index: 999;
+      transition: 0.2s;
+    }
+    .whatsapp-float:hover {
+      transform: scale(1.1);
+      background: #20b359;
+    }
+    @keyframes pulse-border {
+      0% { box-shadow: 0 0 0 0 rgba(255, 215, 0, 0.7); }
+      70% { box-shadow: 0 0 0 15px rgba(255, 215, 0, 0); }
+      100% { box-shadow: 0 0 0 0 rgba(255, 215, 0, 0); }
+    }
+    .offer-badge {
+      animation: pulse-border 2s infinite;
+    }
+  </style>
+</head>
+<body class="bg-gray-900 text-gray-100">
+
+<!-- Navbar (same premium) -->
+<nav class="navbar-3d fixed top-0 left-0 w-full z-50 bg-gradient-to-r from-gray-800 via-gray-900 to-black shadow">
+  <div class="max-w-7xl mx-auto px-6 py-3 flex justify-between items-center">
+    <div class="flex items-center space-x-4">
+      <img src="https://raw.githubusercontent.com/subhajitbh/pic/main/logo.png" alt="Stock Data Analysis Logo" class="h-12 w-12 rounded-full shadow">
+      <h1 class="text-2xl font-bold text-white nav-text-3d">Stock Data Analysis</h1>
+    </div>
+    <div class="space-x-6">
+      <a href="#indicators" class="text-white nav-text-3d">Indicators</a>
+      <a href="#examples" class="text-white nav-text-3d">Examples</a>
+      <a href="#pricing" class="text-white nav-text-3d">Pricing</a>
+      <a href="#contact" class="text-white nav-text-3d">Contact</a>
+    </div>
+  </div>
+</nav>
+
+<!-- Hero Section -->
+<section class="bg-gradient-to-br from-indigo-900 via-purple-800 to-pink-700 py-24 text-center text-white relative overflow-hidden">
+  <div class="absolute top-0 left-0 w-full h-full opacity-10 bg-[url('hero-bg-pattern.svg')] bg-cover"></div>
+  <div class="relative z-10 max-w-4xl mx-auto px-4 fade-in-up">
+    <h2 class="text-5xl font-extrabold mb-4 leading-tight animate-pulse">Enhance Your Trading Game</h2>
+    <p class="text-xl mb-8">Powerful Indicators. Smart Signals. Confident Decisions.</p>
+    <a href="#pricing" class="inline-block bg-white text-indigo-800 font-semibold px-8 py-3 rounded-full shadow-lg hover:bg-gray-100 transition-transform transform hover:scale-105">Explore Plans</a>
+  </div>
+</section>
+
+<!-- Free Indicator Section (unchanged) -->
+<section id="free-indicator" class="py-20 bg-gradient-to-br from-gray-900 via-gray-800 to-black">
+  <div class="max-w-6xl mx-auto px-4">
+    <h3 class="text-3xl font-semibold text-center mb-12 text-white">Our Free Indicator</h3>
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 justify-center">
+      <a href="Donchain-Signal.html" class="block">
+        <div class="indicator-card bg-gradient-to-r from-indigo-500 via-blue-500 to-cyan-500 text-white p-6 rounded-xl shadow-xl hover:scale-105 transition-transform duration-300">
+          <h4 class="text-xl font-bold mb-2">Donchain Signal</h4>
+          <p>This free TradingView indicator gives clear buy/sell signals, basic trend guidance, and works seamlessly with a free TradingView account. Perfect for beginners exploring smart entries.</p>
+        </div>
+      </a>
+      <a href="my-harmonic.html" class="block">
+        <div class="indicator-card bg-gradient-to-r from-purple-600 via-pink-500 to-red-500 text-white p-6 rounded-xl shadow-xl hover:scale-105 transition-transform duration-300">
+          <h4 class="text-xl font-bold mb-2">My-Harmonic</h4>
+          <p>My-Harmonic detects Gartley bullish/bearish patterns on TradingView. Fully functional on a free account. Built for accuracy and learning—contribute if you can extend it to more harmonic patterns!</p>
+        </div>
+      </a>
+      <a href="future-oi-analysis.html" class="block">
+        <div class="indicator-card bg-gradient-to-r from-cyan-600 via-sky-500 to-indigo-600 text-white p-6 rounded-xl shadow-xl hover:scale-105 transition-transform duration-300">
+          <h4 class="text-xl font-bold mb-2">Future OI Analysis</h4>
+          <p>This indicator analyzes Futures Open Interest (OI), cost of carry, and rollover to reveal market sentiment. Includes toggles, date filtering, and insights like long buildup, short covering, and more.</p>
+        </div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- Premium Indicators (unchanged) -->
+<section id="indicators" class="py-20 bg-gradient-to-br from-gray-800 via-gray-900 to-black">
+  <div class="max-w-6xl mx-auto px-4">
+    <h3 class="text-3xl font-semibold text-center mb-12 text-white">Our Premium Indicators</h3>
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 justify-items-center">
+      <!-- <a href="buy-sell-v4.html" class="block">
+        <div class="indicator-card bg-gradient-to-r from-white-400 via-blue-500 to-yellow-600 text-white p-6 rounded-xl shadow-xl hover:scale-105 transition-transform duration-300">
+          <h4 class="text-xl font-bold mb-2">Buy Sell V5</h4>
+          <p>Buy/sell signals, script comparison, alerts, MA, Bollinger Bands, Supertrend. Ideal for options.</p>
+        </div>
+      </a> -->
+      <a href="buy-sell-light.html" class="block">
+        <div class="indicator-card bg-gradient-to-r from-yellow-400 via-red-500 to-pink-600 text-white p-6 rounded-xl shadow-xl hover:scale-105 transition-transform duration-300">
+          <h4 class="text-xl font-bold mb-2">Buy Sell Light</h4>
+          <p>Reliable signals, multi-timeframe analysis, alerts. Works on free TradingView account.</p>
+        </div>
+      </a>
+      <a href="buy-sell-screener.html" class="block">
+        <div class="indicator-card bg-gradient-to-r from-blue-400 via-purple-600 to-indigo-900 text-white p-6 rounded-xl shadow-xl hover:scale-105 transition-transform duration-300">
+          <h4 class="text-xl font-bold mb-2">Buy Sell Screener</h4>
+          <p>Scans and forecasts stocks before entry. Displays signals & alerts, free TradingView compatible.</p>
+        </div>
+      </a>
+     <!--  <a href="option-chain.html" class="block">
+        <div class="indicator-card bg-gradient-to-r from-green-500 via-teal-600 to-cyan-600 text-white p-6 rounded-xl shadow-xl hover:scale-105 transition-transform duration-300">
+          <h4 class="text-xl font-bold mb-2">Option Chain</h4>
+          <p>Live option chain data, IV, Delta, buy/sell signals. Fully functional on free TradingView.</p>
+        </div>
+      </a> -->
+      <a href="option-plus.html" class="block">
+        <div class="indicator-card bg-gradient-to-r from-indigo-700 via-purple-800 to-pink-700 text-white p-6 rounded-xl shadow-2xl hover:scale-105 transition-transform duration-300 relative overflow-hidden">
+          <span class="absolute top-2 right-2 bg-yellow-400 text-black text-xs px-2 py-1 rounded-full font-bold animate-pulse">PRO</span>
+          <h4 class="text-xl font-bold mb-2">Option+</h4>
+          <p>Advanced breakout + option chain intelligence. Predictive entries, volatility analysis, 3 targets + SL.</p>
+        </div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- Examples Section (unchanged) -->
+<section id="examples" class="py-20 bg-gray-800 relative">
+  <div class="max-w-6xl mx-auto px-4 text-center">
+    <h3 class="text-3xl font-semibold mb-10 text-white">Live Examples & Tutorials</h3>
+    <div class="carousel-container mx-auto mb-24">
+      <div class="arrow left" id="leftArrowImg">&#10094;</div>
+      <div class="arrow right" id="rightArrowImg">&#10095;</div>
+      <div class="image-row" id="imageRow">
+        <img src="https://raw.githubusercontent.com/subhajitbh/pic/main/example1.jpg" alt="Example 1">
+        <img src="https://raw.githubusercontent.com/subhajitbh/pic/main/example2.jpg" alt="Example 2">
+        <img src="https://raw.githubusercontent.com/subhajitbh/pic/main/example3.jpg" alt="Example 3">
+        <img src="https://raw.githubusercontent.com/subhajitbh/pic/main/example4.jpg" alt="Example 4">
+        <img src="https://raw.githubusercontent.com/subhajitbh/pic/main/example5.jpg" alt="Example 5">
+        <img src="https://raw.githubusercontent.com/subhajitbh/pic/main/example6.jpg" alt="Example 6">
+        <img src="https://raw.githubusercontent.com/subhajitbh/pic/main/example7.jpg" alt="Example 7">
+        <img src="https://raw.githubusercontent.com/subhajitbh/pic/main/example8.jpg" alt="Example 8">
+        <img src="https://raw.githubusercontent.com/subhajitbh/pic/main/example9.jpg" alt="Example 9">
+        <img src="https://raw.githubusercontent.com/subhajitbh/pic/main/example10.jpg" alt="Example 10">
+      </div>
+    </div>
+    <div class="carousel-container mx-auto">
+      <div class="arrow left" id="leftArrowVid">&#10094;</div>
+      <div class="arrow right" id="rightArrowVid">&#10095;</div>
+      <div class="image-row" id="videoRow">
+        <iframe width="300" height="200" src="https://youtube.com/embed/TfSMGaYI6ik" title="YouTube" frameborder="0" allowfullscreen class="rounded-lg shadow-lg"></iframe>
+        <iframe width="300" height="200" src="https://www.youtube.com/embed/Bp_aX5v9W1E" title="YouTube" frameborder="0" allowfullscreen class="rounded-lg shadow-lg"></iframe>
+        <iframe width="300" height="200" src="https://youtube.com/embed/tUuSDpmclVs" title="YouTube" frameborder="0" allowfullscreen class="rounded-lg shadow-lg"></iframe>
+        <iframe width="300" height="200" src="https://youtube.com/embed/WNi0ViThWzM" title="YouTube" frameborder="0" allowfullscreen class="rounded-lg shadow-lg"></iframe>
+      </div>
+    </div>
+  </div>
+  <script>
+    function initCarousel(rowId, leftId, rightId) {
+      let scrollPos = 0;
+      const row = document.getElementById(rowId);
+      if(!row) return;
+      const scrollAmount = 320;
+      function scroll(direction) {
+        const maxScroll = row.scrollWidth - row.clientWidth;
+        scrollPos += direction * scrollAmount;
+        scrollPos = Math.max(0, Math.min(scrollPos, maxScroll));
+        row.style.transform = `translateX(-${scrollPos}px)`;
+      }
+      document.getElementById(leftId).addEventListener('click', () => scroll(-1));
+      document.getElementById(rightId).addEventListener('click', () => scroll(1));
+    }
+    initCarousel('imageRow', 'leftArrowImg', 'rightArrowImg');
+    initCarousel('videoRow', 'leftArrowVid', 'rightArrowVid');
+  </script>
+</section>
+
+<!-- ========== UPDATED PRICING SECTION (merged with 2nd file premium style + demo offer) ========== -->
+<section id="pricing" class="py-20 bg-gradient-to-br from-black via-gray-900 to-black text-white">
+  <div class="max-w-6xl mx-auto px-4">
+    
+    <!-- Bengali Festive Offer Banner (limited time) -->
+    <div class="text-center mb-6">
+      <span class="inline-block bg-gradient-to-r from-yellow-500 to-red-500 text-white text-sm px-5 py-2 rounded-full font-bold shadow-lg offer-badge">🎉 LIMITED TIME: HAPPY BENGALI NEW YEAR OFFER 🎉</span>
+    </div>
+
+    <!-- 🔥 DEMO TRIAL CARD (from second file, upgraded) -->
+    <div class="trial-card rounded-2xl p-6 md:p-8 mb-12 text-center shadow-2xl relative overflow-hidden">
+      <div class="absolute inset-0 bg-black opacity-20"></div>
+      <div class="relative z-10">
+        <i class="fas fa-gem text-5xl text-yellow-300 mb-3"></i>
+        <h2 class="text-3xl md:text-4xl font-black text-white glow-text">🔥 Try Full Access 🔥</h2>
+        <p class="text-2xl font-extrabold mt-2"><span class="bg-white text-black px-4 py-1 rounded-full text-3xl inline-block shadow">₹299</span> <span class="text-xl">/ 7 Days Demo</span></p>
+        <p class="text-yellow-100 text-lg mt-2">✔️ All Premium Indicators | ✔️ No Hidden Charges | ✔️ New Users Only</p>
+        <p class="text-sm text-gray-200 mt-1">Upgrade anytime • Full support</p>
+        <a href="https://wa.me/918637826917?text=Hi%20I%20want%20₹299%20demo%20access" target="_blank">
+          <button class="mt-5 bg-green-600 hover:bg-green-500 text-white font-bold py-3 px-8 rounded-full shadow-xl transition transform hover:scale-105 text-lg flex items-center gap-2 mx-auto"><i class="fab fa-whatsapp text-2xl"></i> Grab Demo on WhatsApp</button>
+        </a>
+      </div>
+    </div>
+
+    <!-- Premium Pricing Table (Monthly + Quarterly) inspired by 2nd file, extended with all products -->
+    <div class="bg-black/40 backdrop-blur-sm rounded-2xl border border-yellow-500/60 p-1 overflow-hidden shadow-2xl">
+      <div class="overflow-x-auto">
+        <table class="pricing-table w-full text-center border-collapse">
+          <thead class="bg-gradient-to-r from-yellow-600 to-orange-600 text-black">
+            <tr>
+              <th class="py-4 px-2 text-lg font-bold">Indicator / Bundle</th>
+              <th class="py-4 px-4 text-lg font-bold">Monthly</th>
+              <th class="py-4 px-4 text-lg font-bold">Quarterly</th>
+             </tr>
+          </thead>
+          <tbody class="divide-y divide-gray-700 text-gray-200">
+            <tr class="hover:bg-yellow-900/30 transition">
+              <td class="py-4 px-2 font-semibold">Buy Sell Light</td>
+              <td class="py-4">₹ 999</td>
+              <td class="py-4">₹ 2,499</td>
+             </tr>
+            <tr class="hover:bg-yellow-900/30 transition">
+              <td class="py-4 px-2 font-semibold">Buy Sell Screener</td>
+              <td class="py-4">₹ 1,299</td>
+              <td class="py-4">₹ 2,999</td>
+             </tr>
+            <tr class="bg-yellow-800/40 font-medium">
+              <td class="py-4 px-2 font-bold text-yellow-300"><span class="bg-yellow-600 text-black px-2 py-0.5 rounded-full text-xs mr-1">PRO</span> Option+</td>
+              <td class="py-4">₹ 1,999</td>
+              <td class="py-4">₹ 5,499</td>
+             </tr>
+            <tr class="bg-gradient-to-r from-amber-800/50 to-orange-800/50 font-bold">
+              <td class="py-4 px-2 text-white">🚀 All-In-One Bundle <span class="text-yellow-300">(V5+Light+Screener+Option+Option+)</span></td>
+              <td class="py-4 text-yellow-300">₹ 2,499</td>
+              <td class="py-4 text-yellow-300">₹ 6,999</td>
+             </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <!-- Additional Demo note: 1 week trial for US as well -->
+    <div class="mt-6 text-center bg-black/30 p-4 rounded-xl">
+      <p class="text-pink-300 text-lg flex items-center justify-center gap-2">
+        <i class="fas fa-gift"></i>
+        Customized versions can be made as per your specific needs.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- Contact & Payment Section (enhanced with WhatsApp, QR and second file details) -->
+<section id="contact" class="bg-gradient-to-br from-indigo-900 via-purple-900 to-cyan-800 py-24 text-center text-white relative overflow-hidden">
+  <style>
+    @keyframes gradientMove {
+      0% { background-position: 0% 50%; }
+      100% { background-position: 100% 50%; }
+    }
+    .animate-gradient {
+      background-size: 200% 200%;
+      animation: gradientMove 4s ease infinite;
+    }
+  </style>
+  <div class="max-w-3xl mx-auto px-6">
+    <h2 class="text-4xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-yellow-300 via-pink-400 to-red-500 mb-6 animate-gradient drop-shadow-lg">
+      Contact & Payment
+    </h2>
+    <p class="mb-4 text-lg text-gray-300">Reach out for subscriptions, support, or payment queries. Instant response on WhatsApp/Telegram.</p>
+
+    <div class="space-y-2 mb-8 text-lg">
+      <p><i class="fab fa-whatsapp text-green-400 mr-2"></i> WhatsApp: 
+        <a href="https://wa.me/918637826917" target="_blank" class="text-blue-300 font-semibold hover:underline">8637826917</a>
+      </p>
+      <p><i class="fab fa-telegram text-blue-400 mr-2"></i> Telegram: 
+        <a href="https://t.me/Bhattacharya_S" target="_blank" class="text-blue-300 font-semibold hover:underline">@Bhattacharya_S</a>
+      </p>
+      <p><i class="fas fa-envelope text-red-300 mr-2"></i> Email: 
+        <a href="mailto:info.stockdataanalysis@gmail.com" class="text-yellow-300 font-semibold hover:underline">info.stockdataanalysis@gmail.com</a>
+      </p>
+    </div>
+
+    <hr class="border-gray-600 my-8">
+
+    <div class="grid md:grid-cols-2 gap-10 items-center">
+      <div>
+        <h3 class="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-green-300 via-yellow-300 to-orange-400 mb-2">
+          UPI Payment
+        </h3>
+        <p class="text-gray-300 text-lg">Pay using UPI ID:</p>
+        <p class="text-2xl text-lime-300 font-semibold mt-2 break-all">
+          <a href="upi://pay?pa=8637826917-3@ybl&pn=Stock%20Data%20Analysis" class="hover:underline">
+            bhattacharya.subhajit-1@oksbi
+          </a>
+        </p>
+        <p class="text-sm mt-1 text-gray-400 italic">Share confirmation via WhatsApp or Telegram for instant activation.</p>
+      </div>
+      <div>
+        <img src="https://raw.githubusercontent.com/subhajitbh/pic/main/qr-code.jpeg" alt="UPI QR Code" class="mx-auto rounded-lg shadow-lg border border-gray-500 w-full max-w-xs md:max-w-sm">
+        <p class="mt-3 text-sm text-gray-400 italic">Scan to Pay</p>
+      </div>
+    </div>
+    <div class="mt-8 text-yellow-200 text-sm">
+      <i class="fas fa-shield-alt"></i> 100% secure payment • Instant access after verification
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer class="bg-black text-center py-6 text-sm text-gray-400">
+  <p>© 2025 Stock Data Analysis. All rights reserved. | Powerful Trading Tools</p>
+</footer>
+
+<!-- Floating WhatsApp Button (second file style) -->
+<a href="https://wa.me/918637826917?text=Hi%20I%20want%20to%20know%20about%20indicators%20and%20pricing" class="whatsapp-float" target="_blank">
+  <i class="fab fa-whatsapp text-white text-3xl"></i>
+</a>
+
+<script>
+  // small extra for smooth interaction
+  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function(e) {
+      const targetId = this.getAttribute('href');
+      if(targetId === "#") return;
+      const target = document.querySelector(targetId);
+      if(target) {
+        e.preventDefault();
+        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    });
+  });
+</script>
+</body>
+</html>
