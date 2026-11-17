@@ -334,81 +334,264 @@
       </div>
     </div>
     
-    <!-- Premium Pricing Table (Monthly + Quarterly) inspired by 2nd file, extended with all products -->
-    <div class="bg-black/40 backdrop-blur-sm rounded-2xl border border-yellow-500/60 p-1 overflow-hidden shadow-2xl">
-      <div class="overflow-x-auto">
-        <table class="pricing-table w-full text-center border-collapse">
-          <thead class="bg-gradient-to-r from-amber-600 via-yellow-600 to-orange-600 text-white shadow-md">
-            <tr>
-              <th class="py-4 px-2 text-lg font-extrabold drop-shadow-sm">Indicator / Bundle</th>
-              <th class="py-4 px-4 text-lg font-extrabold drop-shadow-sm">Monthly</th>
-              <th class="py-4 px-4 text-lg font-extrabold drop-shadow-sm">Quarterly</th>
-            </tr>
-          </thead>
-          <tbody class="divide-y divide-gray-700 text-gray-200">
+<!-- Premium Pricing Table -->
+<div class="bg-black/40 backdrop-blur-sm rounded-2xl border border-yellow-500/60 p-1 overflow-hidden shadow-2xl">
+  <div class="overflow-x-auto">
+    <table class="pricing-table w-full text-center border-collapse">
 
-            <!-- Buy Sell Light -->
-            <tr class="hover:bg-green-900/20 transition duration-300">
-              <td class="font-semibold text-green-300">
-                <a href="buy-sell-light.html"
-                  class="block py-4 px-2 hover:text-green-100 transition-colors">
-                  💡 Buy Sell Light
-                </a>
-              </td>
-              <td class="py-4 text-center">₹1,499</td>
-              <td class="py-4 text-center">₹3,999</td>
-            </tr>
+      <thead class="bg-gradient-to-r from-amber-600 via-yellow-600 to-orange-600 text-white shadow-md">
+        <tr>
+          <th class="py-4 px-2 text-lg font-extrabold drop-shadow-sm">
+            Indicator / Bundle
+          </th>
 
-            <!-- Buy Sell Screener -->
-            <tr class="hover:bg-blue-900/20 transition duration-300">
-              <td class="font-semibold text-sky-300">
-                <a href="buy-sell-screener.html"
-                  class="block py-4 px-2 hover:text-sky-100 transition-colors">
-                  📊 Buy Sell Screener
-                </a>
-              </td>
-              <td class="py-4 text-center">₹1,899</td>
-              <td class="py-4 text-center">₹4,499</td>
-            </tr>
+          <th class="py-4 px-4 text-lg font-extrabold drop-shadow-sm">
+            Monthly
+          </th>
 
-            <!-- Option+ -->
-            <tr class="bg-yellow-800/40 hover:bg-yellow-700/40 transition duration-300">
-              <td class="font-bold text-yellow-300">
-                <a href="option-plus.html"
-                  class="block py-4 px-2 hover:text-yellow-100 transition-colors">
-                  <span class="bg-yellow-600 text-black px-2 py-0.5 rounded-full text-xs mr-1">
-                    PRO
-                  </span>
-                  Option+
-                  <div class="text-xs text-yellow-200 mt-1">
-                    Available for NSE & MCX
-                  </div>
-                </a>
-              </td>
-              <td class="py-4 text-center">₹2,499</td>
-              <td class="py-4 text-center">₹5,999</td>
-            </tr>
+          <th class="py-4 px-4 text-lg font-extrabold drop-shadow-sm relative">
+            <div class="text-sm text-yellow-200 font-bold">
+              🎁 SPECIAL OFFER
+            </div>
+            Quarterly
+            <div class="text-xs bg-red-500 text-white rounded-full px-2 py-1 mt-1 inline-block">
+              10% OFF
+            </div>
+          </th>
 
-            <!-- Bundle -->
-            <tr class="bg-gradient-to-r from-amber-800/50 to-orange-800/50 font-bold">
-              <td class="py-4 px-2 text-white">🚀 All-In-One Bundle <span class="text-yellow-300">(Light + Screener + Option+)</span></td>
-              <td class="py-4 text-yellow-300">₹ 2,999</td>
-              <td class="py-4 text-yellow-300">₹ 7,999</td>
-             </tr>
+          <th class="py-4 px-4 text-lg font-extrabold drop-shadow-sm relative">
+            <div class="text-sm text-yellow-200 font-bold">
+              ⭐ SPECIAL OFFER
+            </div>
+            Yearly
+            <div class="text-xs bg-red-500 text-white rounded-full px-2 py-1 mt-1 inline-block">
+              20% OFF
+            </div>
+          </th>
+        </tr>
+      </thead>
 
-          </tbody>
-        </table>
-      </div>
-    </div>
-    <!-- Additional Demo note: 1 week trial for US as well -->
-    <div class="mt-6 text-center bg-black/30 p-4 rounded-xl">
-      <p class="text-pink-300 text-lg flex items-center justify-center gap-2">
-        <i class="fas fa-gift"></i>
-        Customized versions can be made as per your specific needs.
-      </p>
-    </div>
+      <tbody class="divide-y divide-gray-700 text-gray-200">
+
+        <!-- Buy Sell Light -->
+        <tr class="hover:bg-green-900/20 transition duration-300">
+
+          <td class="font-semibold text-green-300">
+            <a href="buy-sell-light.html"
+              class="block py-4 px-2 hover:text-green-100 transition-colors">
+              💡 Buy Sell Light
+            </a>
+          </td>
+
+          <td class="py-4 text-center">
+            ₹1,499
+          </td>
+
+          <td class="py-4 text-center">
+            <div class="text-gray-500 line-through text-sm">
+              ₹4,497
+            </div>
+            <div class="text-yellow-300 font-bold text-xl">
+              ₹3,999
+            </div>
+            <div class="text-green-400 text-xs font-semibold">
+              Save ₹498
+            </div>
+          </td>
+
+          <td class="py-4 text-center">
+            <div class="text-gray-500 line-through text-sm">
+              ₹17,999
+            </div>
+            <div class="text-yellow-300 font-bold text-xl">
+              ₹14,499
+            </div>
+            <div class="text-green-400 text-xs font-semibold">
+              Yearly Special Price
+            </div>
+          </td>
+
+        </tr>
+
+
+        <!-- Buy Sell Screener -->
+        <tr class="hover:bg-blue-900/20 transition duration-300">
+
+          <td class="font-semibold text-sky-300">
+            <a href="buy-sell-screener.html"
+              class="block py-4 px-2 hover:text-sky-100 transition-colors">
+              📊 Buy Sell Screener
+            </a>
+          </td>
+
+          <td class="py-4 text-center">
+            ₹1,699
+          </td>
+
+          <td class="py-4 text-center">
+            <div class="text-gray-500 line-through text-sm">
+              ₹5,097
+            </div>
+            <div class="text-yellow-300 font-bold text-xl">
+              ₹4,499
+            </div>
+            <div class="text-green-400 text-xs font-semibold">
+              Save ₹598
+            </div>
+          </td>
+
+          <td class="py-4 text-center">
+            <div class="text-gray-500 line-through text-sm">
+              ₹20,399
+            </div>
+            <div class="text-yellow-300 font-bold text-xl">
+              ₹16,499
+            </div>
+            <div class="text-green-400 text-xs font-semibold">
+              Yearly Special Price
+            </div>
+          </td>
+
+        </tr>
+
+
+        <!-- Option+ -->
+        <tr class="bg-yellow-800/40 hover:bg-yellow-700/40 transition duration-300">
+
+          <td class="font-bold text-yellow-300">
+            <a href="option-plus.html"
+              class="block py-4 px-2 hover:text-yellow-100 transition-colors">
+
+              <span class="bg-yellow-600 text-black px-2 py-0.5 rounded-full text-xs mr-1">
+                PRO
+              </span>
+
+              Option+
+
+              <div class="text-xs text-yellow-200 mt-1">
+                Available for NSE & MCX
+              </div>
+
+            </a>
+          </td>
+
+          <td class="py-4 text-center">
+            ₹2,499
+          </td>
+
+          <td class="py-4 text-center">
+
+            <div class="text-gray-500 line-through text-sm">
+              ₹7,497
+            </div>
+
+            <div class="text-yellow-300 font-bold text-xl">
+              ₹6,499
+            </div>
+
+            <div class="text-green-400 text-xs font-semibold">
+              Save ₹998
+            </div>
+
+          </td>
+
+          <td class="py-4 text-center">
+
+            <div class="text-gray-500 line-through text-sm">
+              ₹29,999
+            </div>
+
+            <div class="text-yellow-300 font-bold text-xl">
+              ₹22,999
+            </div>
+
+            <div class="text-green-400 text-xs font-semibold">
+              Yearly Special Price
+            </div>
+
+          </td>
+
+        </tr>
+
+
+        <!-- All-In-One Bundle -->
+        <tr class="bg-gradient-to-r from-amber-800/50 to-orange-800/50 font-bold">
+
+          <td class="py-4 px-2 text-white">
+
+            🚀 All-In-One Bundle
+
+            <span class="text-yellow-300">
+              (Light + Screener + Option+)
+            </span>
+
+          </td>
+
+          <td class="py-4 text-yellow-300">
+            ₹2,999
+          </td>
+
+          <td class="py-4 text-yellow-300">
+
+            <div class="text-gray-500 line-through text-sm">
+              ₹8,997
+            </div>
+
+            <div class="text-yellow-300 font-bold text-xl">
+              ₹7,999
+            </div>
+
+            <div class="text-green-400 text-xs font-semibold">
+              Save ₹998
+            </div>
+
+          </td>
+
+          <td class="py-4 text-yellow-300">
+
+            <div class="text-gray-500 line-through text-sm">
+              ₹35,999
+            </div>
+
+            <div class="text-yellow-300 font-bold text-xl">
+              ₹27,999
+            </div>
+
+            <div class="text-green-400 text-xs font-semibold">
+              Yearly Special Price
+            </div>
+
+          </td>
+
+        </tr>
+
+      </tbody>
+
+    </table>
   </div>
-</section>
+</div>
+
+<!-- Pricing Offer Note -->
+<div class="mt-6 text-center">
+
+  <div class="inline-block bg-gradient-to-r from-yellow-500 via-orange-500 to-red-500
+              text-black font-extrabold px-6 py-3 rounded-full shadow-xl">
+
+    🎁 Save 10% on Quarterly Plan &nbsp; | &nbsp; ⭐ Special Yearly Pricing
+
+  </div>
+
+  <p class="text-gray-400 text-sm mt-3">
+    Quarterly discount is calculated from the monthly price × 3.
+  </p>
+
+</div>
+    
+    
+    
+    
+    
+
 
 <!-- Contact & Payment Section (enhanced with WhatsApp, QR and second file details) -->
 <section id="contact" class="bg-gradient-to-br from-indigo-900 via-purple-900 to-cyan-800 py-24 text-center text-white relative overflow-hidden">
